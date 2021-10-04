@@ -117,14 +117,7 @@ export default {
       console.log(todo.editing);
     },
     clearCompleted() {
-      this.todos.forEach((todo, index) => {
-        console.log(this.todos);
-        if (todo.completed) {
-          console.log(todo.title);
-          this.removeTodo(index);
-        }
-        console.log(this.todos);
-      });
+      this.todos = this.todos.filter((todo) => !todo.completed);
     },
     doneEdit(todo) {
       if (todo.title.trim() == "") {
@@ -139,7 +132,7 @@ export default {
       todo.editing = false;
     },
     checkAllTodos() {
-      this.todos.forEach((todo) => todo.completed = event.target.checked)
+      this.todos.forEach((todo) => (todo.completed = event.target.checked));
     },
   },
   computed: {

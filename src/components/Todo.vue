@@ -12,7 +12,7 @@
         />
         <b-button type="submit">add</b-button>
       </b-form>
-      <b-list-group v-for="(todo, index) in todos" :key="todo.id">
+      <b-list-group v-for="(todo, index) in todosFilter" :key="todo.id">
         <b-list-group-item>
           <div v-if="!todo.editing" class="todo-item">
             <!-- b-checkbox change size didn't work -->
@@ -58,10 +58,17 @@
           @change="checkAllTodos"
         />check all
       </label>
-      <span>{{ leftTodos }} items left</span>
-      <b-button variant="outline-secondary" @click="clearCompleted"
+      <b-dropdown size="sm" text="filter todos" variant="outline-secondary">
+        <b-dropdown-item @click="filter = 'all'">all</b-dropdown-item>
+        <b-dropdown-item @click="filter = 'active'">active</b-dropdown-item>
+        <b-dropdown-item @click="filter = 'completed'"
+          >completed</b-dropdown-item
+        >
+      </b-dropdown>
+      <b-button size="sm" variant="outline-secondary" @click="clearCompleted"
         >clear completed</b-button
       >
+      <span>{{ leftTodos }} items left</span>
     </footer>
   </div>
 </template>
@@ -88,6 +95,7 @@ export default {
           editing: false,
         },
       ],
+      filter: "all",
     };
   },
   methods: {
@@ -137,10 +145,20 @@ export default {
   },
   computed: {
     leftTodos() {
-      return this.todos.filter((todo) => !todo.completed).length;
+      // 此处调用方法不需要加 （）
+      return this.todosFilter.filter((todo) => !todo.completed).length;
     },
     allCompleted() {
       return this.leftTodos == 0;
+    },
+    todosFilter() {
+      if (this.filter == "all") {
+        return this.todos;
+      } else if (this.filter == "active") {
+        return this.todos.filter((todo) => !todo.completed);
+      } else {
+        return this.todos.filter((todo) => todo.completed);
+      }
     },
   },
 };

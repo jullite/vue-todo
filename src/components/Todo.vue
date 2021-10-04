@@ -23,7 +23,7 @@
             />
             <!-- 还是建议加上在 class 上加 ‘’ vscode 把它渲染成变量了，虽然不影响结果，但很影响阅读 -->
             <span
-              :class="['todo-text', { 'compeleted': todo.completed }]"
+              :class="['todo-text', { compeleted: todo.completed }]"
               @dblclick="editTodo(todo)"
               >{{ todo.title }}</span
             >
@@ -50,6 +50,14 @@
       </b-list-group>
     </section>
     <footer>
+      <label for="checkAll">
+        <input
+          type="checkbox"
+          class="checkbox-round check-all"
+          :checked="allCompleted"
+          @change="checkAllTodos"
+        />check all
+      </label>
       <span>{{ leftTodos }} items left</span>
       <b-button variant="outline-secondary" @click="clearCompleted"
         >clear completed</b-button
@@ -110,13 +118,12 @@ export default {
     },
     clearCompleted() {
       this.todos.forEach((todo, index) => {
-        console.log(this.todos)
+        console.log(this.todos);
         if (todo.completed) {
-          console.log(todo.title)
+          console.log(todo.title);
           this.removeTodo(index);
         }
-        console.log(this.todos)
-
+        console.log(this.todos);
       });
     },
     doneEdit(todo) {
@@ -131,12 +138,18 @@ export default {
       todo.title = this.beforeEditCache;
       todo.editing = false;
     },
+    checkAllTodos() {
+      this.todos.forEach((todo) => todo.completed = event.target.checked)
+    },
   },
   computed: {
     leftTodos() {
-      return this.todos.filter(todo => !todo.completed ).length;
+      return this.todos.filter((todo) => !todo.completed).length;
     },
-  }
+    allCompleted() {
+      return this.leftTodos == 0;
+    },
+  },
 };
 </script>
 
@@ -205,5 +218,8 @@ footer {
   line-height: 40px;
   padding: 10px;
   border: 1px solid lightgrey;
+}
+.check-all {
+  margin: 5px;
 }
 </style>

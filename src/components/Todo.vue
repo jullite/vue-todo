@@ -65,7 +65,7 @@
           >completed</b-dropdown-item
         >
       </b-dropdown>
-      <b-button size="sm" variant="outline-secondary" @click="clearCompleted"
+      <b-button v-if="showClearCompletedBtn" size="sm" variant="outline-secondary" @click="clearCompleted"
         >clear completed</b-button
       >
       <span>{{ leftTodos }} items left</span>
@@ -160,6 +160,9 @@ export default {
         return this.todos.filter((todo) => todo.completed);
       }
     },
+    showClearCompletedBtn() {
+      return this.todosFilter.filter((todo) => todo.completed).length > 0
+    }
   },
 };
 </script>

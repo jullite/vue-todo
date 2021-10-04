@@ -23,7 +23,7 @@
             />
             <!-- 还是建议加上在 class 上加 ‘’ vscode 把它渲染成变量了，虽然不影响结果，但很影响阅读 -->
             <span
-              :class="['todo-text', { compeleted: todo.completed }]"
+              :class="['todo-text', { 'compeleted': todo.completed }]"
               @dblclick="editTodo(todo)"
               >{{ todo.title }}</span
             >
@@ -50,7 +50,7 @@
       </b-list-group>
     </section>
     <footer>
-      <span>{{ leftTodos() }} items left</span>
+      <span>{{ leftTodos }} items left</span>
       <b-button variant="outline-secondary" @click="clearCompleted"
         >clear completed</b-button
       >
@@ -108,20 +108,15 @@ export default {
       todo.editing = true;
       console.log(todo.editing);
     },
-    leftTodos() {
-      let sum = 0;
-      this.todos.forEach((todo) => {
-        if (todo.completed) {
-          sum++;
-        }
-      });
-      return sum;
-    },
     clearCompleted() {
       this.todos.forEach((todo, index) => {
+        console.log(this.todos)
         if (todo.completed) {
+          console.log(todo.title)
           this.removeTodo(index);
         }
+        console.log(this.todos)
+
       });
     },
     doneEdit(todo) {
@@ -137,6 +132,11 @@ export default {
       todo.editing = false;
     },
   },
+  computed: {
+    leftTodos() {
+      return this.todos.filter(todo => !todo.completed ).length;
+    },
+  }
 };
 </script>
 

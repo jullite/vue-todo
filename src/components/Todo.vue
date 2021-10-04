@@ -149,7 +149,6 @@ export default {
 
 <style>
 .container {
-  margin-top: 20px;
   width: 600px;
   height: auto;
   margin: 0 auto;

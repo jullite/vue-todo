@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/86504730/135754188-81a17461-00c0-408f-a2bd-2e3ebeaf24bb.png)
+![image](https://user-images.githubusercontent.com/86504730/135831083-ba7855a2-5195-47cf-9cc9-1cbf2d65fa66.png) 
 # vue-todo
 
 ## Project setup

@@ -23,7 +23,7 @@
       </todoItem>
     </section>
     <footer>
-      <label for="checkAll">
+      <label for="checkAll" v-show="todos.length">
         <input
           type="checkbox"
           class="checkbox-round check-all"
@@ -31,7 +31,7 @@
           @change="checkAllTodos"
         />check all
       </label>
-      <b-dropdown size="sm" :text='visibility' variant="outline-secondary">
+      <b-dropdown size="sm" :text='visibility' variant="outline-secondary" v-show="todos.length">
         <b-dropdown-item @click="visibility = 'all'">all</b-dropdown-item>
         <b-dropdown-item @click="visibility = 'active'">active</b-dropdown-item>
         <b-dropdown-item @click="visibility = 'completed'"
